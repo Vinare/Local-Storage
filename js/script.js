@@ -4,13 +4,15 @@ const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 
-let toDoData = localStorage.getItem('toDoData') ? JSON.parse(localStorage.getItem('toDoData')) : [];
+let toDoData = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
+localStorage.setItem('tasks', JSON.stringify(toDoData));
+const data = JSON.parse(localStorage.getItem('tasks'));
 
 const render = function() {  // интегрирует новые li вместо объектов массива
   todoList.innerHTML = '',  // обнуляем массив
   todoCompleted.innerHTML = '';
 
-  toDoData.forEach(function(item) { // вставляем li в нужный список
+  data.forEach(function(item) { // вставляем li в нужный список
     const li = document.createElement('li');
     li.classList.add('todo-item');
     li.innerHTML = '<span class="text-todo">' + item.text + '</span>' +
@@ -43,11 +45,12 @@ todoControl.addEventListener('submit', function(event) {  // пушим объе
     text: headerInput.value,
     completed: false
   };
-
+  
   if (newToDo.text !== '') { 
   toDoData.push(newToDo);
 
-  localStorage.setItem('toDoData', JSON.stringify(toDoData));
+  localStorage.setItem('tasks', JSON.stringify(toDoData));
+
   headerInput.value = '';
   } 
   render();
