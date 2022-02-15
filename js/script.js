@@ -5,14 +5,12 @@ const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 
 let toDoData = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
-localStorage.setItem('tasks', JSON.stringify(toDoData));
-const data = JSON.parse(localStorage.getItem('tasks'));
 
 const render = function() {  // интегрирует новые li вместо объектов массива
   todoList.innerHTML = '',  // обнуляем массив
   todoCompleted.innerHTML = '';
 
-  data.forEach(function(item) { // вставляем li в нужный список
+  toDoData.forEach(function(item) { // вставляем li в нужный список
     const li = document.createElement('li');
     li.classList.add('todo-item');
     li.innerHTML = '<span class="text-todo">' + item.text + '</span>' +
@@ -33,7 +31,9 @@ const render = function() {  // интегрирует новые li вмест�
     });
 
     li.querySelector('.todo-remove').addEventListener('click', function() {
-       
+      const btn = li.querySelector('.todo-remove');
+      btn.closest('li').remove();
+      render();
     });
   });
 };
@@ -55,4 +55,6 @@ todoControl.addEventListener('submit', function(event) {  // пушим объе
   } 
   render();
 });
+
+render();
 
