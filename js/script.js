@@ -4,11 +4,11 @@ const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 
-const toDoData = [];
+let toDoData = localStorage.getItem('toDoData') ? JSON.parse(localStorage.getItem('toDoData')) : [];
 
 const render = function() {  // интегрирует новые li вместо объектов массива
   todoList.innerHTML = '',  // обнуляем массив
-  todoCompleted.innerHTML = '',
+  todoCompleted.innerHTML = '';
 
   toDoData.forEach(function(item) { // вставляем li в нужный список
     const li = document.createElement('li');
@@ -24,6 +24,8 @@ const render = function() {  // интегрирует новые li вмест�
     } else {
       todoList.append(li);
     }
+
+    localStorage.setItem('toDoData', JSON.stringify(toDoData)); 
 
     li.querySelector('.todo-complete').addEventListener('click', function() {
       item.completed = !item.completed;
@@ -51,4 +53,3 @@ todoControl.addEventListener('submit', function(event) {  // пушим объе
   render();
 });
 
-// https://myrusakov.ru/javascript-save-array-or-object-localstorage.html
