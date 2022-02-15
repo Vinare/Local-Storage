@@ -4,7 +4,6 @@ const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 
-<<<<<<< HEAD
 let toDoData = localStorage.getItem('toDoData') ? JSON.parse(localStorage.getItem('toDoData')) : [];
 
 const render = function() {  // интегрирует новые li вместо объектов массива
