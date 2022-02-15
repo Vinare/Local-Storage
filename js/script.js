@@ -4,12 +4,22 @@ const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 
+<<<<<<< HEAD
 let toDoData = localStorage.getItem('toDoData') ? JSON.parse(localStorage.getItem('toDoData')) : [];
 
 const render = function() {  // интегрирует новые li вместо объектов массива
   todoList.innerHTML = '',  // обнуляем массив
   todoCompleted.innerHTML = '';
 
+=======
+let toDoData = [];
+
+const render = function() {  // интегрирует новые li вместо объектов массива
+  todoList.innerHTML = '',  // обнуляем массив
+  todoCompleted.innerHTML = '',
+  
+  toDoData = JSON.parse(localStorage.getItem('toDoData')),
+>>>>>>> 15079019b81d0157fc0bcbaa3f8298c43bdc9314
   toDoData.forEach(function(item) { // вставляем li в нужный список
     const li = document.createElement('li');
     li.classList.add('todo-item');
@@ -49,6 +59,9 @@ todoControl.addEventListener('submit', function(event) {  // пушим объе
   if (newToDo.text !== '') { 
   toDoData.push(newToDo);
   headerInput.value = '';
+  
+  localStorage.setItem('toDoData', JSON.stringify(toDoData));
+  
   } 
   render();
 });
