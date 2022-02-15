@@ -4,12 +4,13 @@ const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 
-const toDoData = [];
+let toDoData = [];
 
 const render = function() {  // интегрирует новые li вместо объектов массива
   todoList.innerHTML = '',  // обнуляем массив
   todoCompleted.innerHTML = '',
-
+  
+  toDoData = JSON.parse(localStorage.getItem('toDoData')),
   toDoData.forEach(function(item) { // вставляем li в нужный список
     const li = document.createElement('li');
     li.classList.add('todo-item');
@@ -47,8 +48,10 @@ todoControl.addEventListener('submit', function(event) {  // пушим объе
   if (newToDo.text !== '') { 
   toDoData.push(newToDo);
   headerInput.value = '';
+  
+  localStorage.setItem('toDoData', JSON.stringify(toDoData));
+  
   } 
   render();
 });
 
-// https://myrusakov.ru/javascript-save-array-or-object-localstorage.html
