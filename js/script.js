@@ -8,7 +8,7 @@ let toDoData = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('
 
 const render = function() {  // интегрирует новые li вместо объектов массива
   todoList.innerHTML = '',  // обнуляем массив
-  todoCompleted.innerHTML = '';
+  todoCompleted.innerHTML = '',
 
   toDoData.forEach(function(item) { // вставляем li в нужный список
     const li = document.createElement('li');
@@ -27,12 +27,15 @@ const render = function() {  // интегрирует новые li вмест�
 
     li.querySelector('.todo-complete').addEventListener('click', function() {
       item.completed = !item.completed;
+
+      localStorage.setItem('tasks', JSON.stringify(toDoData));
       render();
     });
 
     li.querySelector('.todo-remove').addEventListener('click', function() {
-      const btn = li.querySelector('.todo-remove');
-      btn.closest('li').remove();
+      toDoData.splice(toDoData.indexOf(item), 1);
+      
+      localStorage.setItem('tasks', JSON.stringify(toDoData));
       render();
     });
   });
